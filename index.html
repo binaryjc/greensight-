@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenSight | Data Input</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-input">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-nav">
+        <a href="index.html" class="brand-lockup" aria-label="GreenSight home">
+          <img
+            src="./logo.png"
+            alt="GreenSight logo"
+            class="brand-logo"
+            onerror="this.onerror=null;this.src='./assets/logo.png';"
+          />
+          <span class="brand-copy">
+            <span class="brand-name">GreenSight</span>
+            <span class="brand-tagline">See Beyond Emissions.</span>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link nav-link-input" href="index.html">Input</a>
+          <a class="nav-link nav-link-dashboard" href="dashboard.html">Dashboard</a>
+          <a class="nav-link nav-link-insights" href="ai-results.html">AI Insights</a>
+        </nav>
+      </div>
+
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">AI-Powered Sustainability Risk & Optimization Engine</p>
+          <h1>GreenSight Data Input</h1>
+          <p class="subtitle">
+            Enter sustainability usage data using CSV or manual rows, then simulate analytics and AI-style insights.
+          </p>
+        </div>
+        <a class="btn btn-secondary" href="dashboard.html">Open Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Data Input</h2>
+        <p>Use either CSV input, manual entry, or both. All entries are stored in local browser storage.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>CSV Input</h3>
+          <p class="muted small">
+            Columns: <code>Month,Department,Electricity,Fuel,Paper</code><br />
+            Example month format: <code>2026-01</code>
+          </p>
+          <label for="csvInput" class="sr-only">CSV Input</label>
+          <textarea
+            id="csvInput"
+            rows="14"
+            placeholder="Month,Department,Electricity,Fuel,Paper&#10;2026-01,HR,1200,80,35&#10;2026-01,Operations,4200,350,22"
+          ></textarea>
+        </div>
+
+        <div class="card">
+          <h3>Manual Entry</h3>
+          <form id="manualForm" novalidate>
+            <div class="form-grid">
+              <div>
+                <label for="month">Month</label>
+                <input id="month" name="month" type="month" required />
+              </div>
+              <div>
+                <label for="department">Department</label>
+                <input id="department" name="department" type="text" placeholder="e.g., Finance" required />
+              </div>
+              <div>
+                <label for="electricity">Electricity (kWh)</label>
+                <input id="electricity" name="electricity" type="number" min="0" step="0.01" required />
+              </div>
+              <div>
+                <label for="fuel">Fuel (Liters)</label>
+                <input id="fuel" name="fuel" type="number" min="0" step="0.01" required />
+              </div>
+              <div>
+                <label for="paper">Paper (kg)</label>
+                <input id="paper" name="paper" type="number" min="0" step="0.01" required />
+              </div>
+            </div>
+
+            <div class="actions-row">
+              <button type="button" id="addManualRowBtn" class="btn btn-secondary">Add Manual Row</button>
+              <button type="button" id="clearManualRowsBtn" class="btn btn-ghost">Clear Manual Rows</button>
+            </div>
+          </form>
+
+          <div class="mini-table-wrap">
+            <table class="data-table compact" id="manualRowsTable">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Department</th>
+                  <th>Electricity</th>
+                  <th>Fuel</th>
+                  <th>Paper</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="5" class="empty-cell">No manual rows added yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button id="analyzeBtn" class="btn btn-primary btn-large">Analyze Sustainability</button>
+        <button id="loadSampleBtn" class="btn btn-ghost">Load Sample CSV</button>
+      </div>
+
+      <div id="inputStatus" class="status-message" aria-live="polite"></div>
+    </section>
+
+    <section class="panel panel-soft">
+      <div class="section-heading">
+        <h2>What Happens Next</h2>
+        <p>
+          This MVP parses your inputs into structured JSON, stores them in <code>localStorage</code>, and then opens a dashboard
+          with charts, summary metrics, and a simulated AI insights page.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenSight Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-dashboard">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-nav">
+        <a href="index.html" class="brand-lockup" aria-label="GreenSight home">
+          <img
+            src="./logo.png"
+            alt="GreenSight logo"
+            class="brand-logo"
+            onerror="this.onerror=null;this.src='./assets/logo.png';"
+          />
+          <span class="brand-copy">
+            <span class="brand-name">GreenSight</span>
+            <span class="brand-tagline">See Beyond Emissions.</span>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link nav-link-input" href="index.html">Input</a>
+          <a class="nav-link nav-link-dashboard" href="dashboard.html">Dashboard</a>
+          <a class="nav-link nav-link-insights" href="ai-results.html">AI Insights</a>
+        </nav>
+      </div>
+
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">Data Visualization</p>
+          <h1>GreenSight Dashboard</h1>
+          <p class="subtitle">Aggregated metrics, department-level totals, and electricity trend visualization.</p>
+        </div>
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="index.html">Back to Input</a>
+          <a class="btn btn-primary" href="ai-results.html">View AI Insights</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="dashboardContent">
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Summary Metrics</h2>
+        <p>Values are computed from local browser data. Carbon uses dashboard CO2 factors for electricity, fuel, and paper.</p>
+      </div>
+      <div id="summaryCards" class="metric-grid dashboard-summary-grid"></div>
+      <div id="esgScoreBreakdown" class="esg-breakdown-widget"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Department Totals</h2>
+        <p>Aggregated resource usage and total CO2 equivalent contribution by department.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="departmentTable">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Electricity (kWh)</th>
+              <th>Fuel (L)</th>
+              <th>Paper (kg)</th>
+              <th>Estimated Carbon (tCO2e)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Electricity Trend</h2>
+        <p>Monthly total electricity usage across all departments.</p>
+      </div>
+      <div class="chart-card">
+        <div class="chart-canvas-wrap chart-canvas-wrap-md">
+          <canvas id="electricityTrendChart" aria-label="Electricity usage trend chart" role="img"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Emission Analytics Charts</h2>
+        <p>Department breakdown, ranked emitters, and emission composition using CO2e conversion from stored sustainability inputs.</p>
+      </div>
+
+      <div class="dashboard-chart-grid">
+        <div class="chart-card chart-span-2">
+          <h3 class="chart-title">Department Emission Breakdown (Stacked)</h3>
+          <div class="chart-canvas-wrap chart-canvas-wrap-lg">
+            <canvas id="departmentBreakdownChart" aria-label="Stacked bar chart of department emissions by source" role="img"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <h3 class="chart-title">Top Emitting Departments (Ranked)</h3>
+          <div class="chart-canvas-wrap chart-canvas-wrap-md">
+            <canvas id="topEmittersChart" aria-label="Horizontal bar chart of top emitting departments" role="img"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <h3 class="chart-title">Emission Composition (Donut)</h3>
+          <div class="chart-canvas-wrap chart-canvas-wrap-md">
+            <canvas id="emissionCompositionChart" aria-label="Donut chart of emission composition by source" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Departments Exceeding Emission Threshold</h2>
+        <p>Departments above the threshold are highlighted as emission risks with relative variance from the department average.</p>
+      </div>
+      <div id="flagRiskSection"></div>
+    </section>
+
+    <section class="panel panel-soft">
+      <div class="section-heading">
+        <h2>Next Step</h2>
+        <p>Open the simulated AI page to view forecasted carbon changes, anomalies, and recommended reduction strategies.</p>
+      </div>
+      <a class="btn btn-primary btn-large" href="ai-results.html">View AI Insights</a>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js" defer></script>
+</body>
+</html>

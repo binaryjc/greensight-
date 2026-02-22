@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenSight Insights</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-insights">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-nav">
+        <a href="index.html" class="brand-lockup" aria-label="GreenSight home">
+          <img
+            src="./logo.png"
+            alt="GreenSight logo"
+            class="brand-logo"
+            onerror="this.onerror=null;this.src='./assets/logo.png';"
+          />
+          <span class="brand-copy">
+            <span class="brand-name">GreenSight</span>
+            <span class="brand-tagline">See Beyond Emissions.</span>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link nav-link-input" href="index.html">Input</a>
+          <a class="nav-link nav-link-dashboard" href="dashboard.html">Dashboard</a>
+          <a class="nav-link nav-link-insights" href="ai-results.html">AI Insights</a>
+        </nav>
+      </div>
+
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">Simulated AI Output</p>
+          <h1>GreenSight AI</h1>
+          <p class="subtitle">
+            This page simulates AI-generated sustainability insights using deterministic calculations from stored data.
+          </p>
+        </div>
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="dashboard.html">Back to Dashboard</a>
+          <a class="btn btn-ghost" href="index.html">New Data Input</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="aiContent">
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Sustainability Executive Summary</h2>
+        <p>Board-ready summary generated from current sustainability performance data using deterministic MVP logic.</p>
+      </div>
+      <div id="executiveSummaryContainer"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Section 1: Forecast</h2>
+        <p>Predicted next-month carbon footprint using a deterministic projection based on recent trends.</p>
+      </div>
+      <div id="forecastCards" class="metric-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Section 2: Emission Anomalies</h2>
+        <p>Rule-based anomaly flags generated from month-over-month and department-level comparisons.</p>
+      </div>
+      <ul id="anomalyList" class="insight-list"></ul>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Section 3: Recommended Reduction Strategies</h2>
+        <p>Priority-ranked sustainability actions based on your highest impact usage drivers.</p>
+      </div>
+      <div id="recommendationsGrid" class="recommendation-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Section 4: Flagged Departments</h2>
+        <p>Departments with estimated emissions above the calculated threshold are highlighted.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="flaggedDepartmentsTable">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Estimated Carbon (tCO2e)</th>
+              <th>Share of Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="thresholdNote" class="muted small"></p>
+    </section>
+  </main>
+
+  <script src="ai.js" defer></script>
+</body>
+</html>
