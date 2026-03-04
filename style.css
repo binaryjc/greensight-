@@ -133,7 +133,9 @@ code {
 .page-input .nav-link-input,
 .page-dashboard .nav-link-dashboard,
 .page-insights .nav-link-insights,
-.page-documentation .nav-link-docs {
+.page-documentation .nav-link-docs,
+.page-prompt .nav-link-docs,
+.page-pitch .nav-link-docs {
   background: var(--color-primary-soft);
   color: var(--color-primary-dark);
   border-color: rgba(46, 125, 50, 0.25);
@@ -298,6 +300,16 @@ main.container {
   margin-top: 0.25rem;
 }
 
+.doc-link-row {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.doc-card-spaced {
+  margin-top: 0.8rem;
+}
+
 .doc-steps {
   margin: 0;
   padding-left: 1.1rem;
@@ -321,6 +333,25 @@ main.container {
   margin: 0;
   color: var(--color-muted);
   line-height: 1.45;
+}
+
+.prompt-archive .section-heading {
+  margin-bottom: 0.7rem;
+}
+
+.prompt-block {
+  margin: 0;
+  padding: 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #fbfcfc;
+  color: var(--color-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
 }
 
 .section-heading {

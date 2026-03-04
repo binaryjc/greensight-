@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenSight Prompt Archive</title>
+  <link rel="icon" type="image/png" href="./logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-prompt">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-nav">
+        <a href="index.html" class="brand-lockup" aria-label="GreenSight home">
+          <img
+            src="./logo.png"
+            alt="GreenSight logo"
+            class="brand-logo"
+            onerror="this.onerror=null;this.src='./assets/logo.png';"
+          />
+          <span class="brand-copy">
+            <span class="brand-name">GreenSight</span>
+            <span class="brand-tagline">See Beyond Emissions.</span>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link nav-link-input" href="index.html">Input</a>
+          <a class="nav-link nav-link-dashboard" href="dashboard.html">Dashboard</a>
+          <a class="nav-link nav-link-insights" href="ai-results.html">AI Insights</a>
+          <a class="nav-link nav-link-docs" href="documentation.html">Documentation</a>
+        </nav>
+      </div>
+
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">Prompt Archive</p>
+          <h1>GreenSight Build Prompt Archive</h1>
+          <p class="subtitle">
+            This page captures the key product and implementation prompts used to shape the current GreenSight MVP.
+          </p>
+        </div>
+        <a class="btn btn-secondary" href="documentation.html">Back to Documentation</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container docs-page">
+    <section class="panel doc-hero">
+      <div class="section-heading">
+        <h2>Prompt History</h2>
+        <p>Reference archive of the build instructions that drove product scope, UI, data logic, and documentation.</p>
+      </div>
+      <p class="doc-hero-copy">
+        The entries below preserve the main prompts used throughout this build cycle. They are kept in a structured format so the project
+        requirements and design decisions are easy to review later.
+      </p>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 1: MVP Application Build</h2>
+        <p>Initial product definition for the three-page static prototype.</p>
+      </div>
+      <pre class="prompt-block">ROLE:
+You are a senior frontend engineer specializing in clean, production-ready web apps using plain HTML, CSS, and vanilla JavaScript. You build beginner-friendly, well-structured code that is easy to expand later.
+
+OBJECTIVE:
+Create a deployable static web application called:
+
+"AI-Powered Sustainability Risk &amp; Optimization Engine (MVP)"
+
+This version must NOT include real AI yet.
+Instead, create a dummy AI results page that simulates AI outputs.
+
+The app must contain THREE pages:
+
+1) index.html → Data Input Page
+2) dashboard.html → Data Visualization Page
+3) ai-results.html → Dummy AI Insights Page
+
+NO backend yet.
+NO Firebase Functions.
+NO OpenAI integration.
+Use only static hosting compatible code.
+
+Key requirements included:
+- CSV/manual input and localStorage
+- Dashboard summary cards, department table, and Chart.js line chart
+- Dummy AI insights generated from deterministic logic
+- Shared CSS and separated JS files
+- Firebase Hosting (static) deployment instructions</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 2: Demo Data Request</h2>
+        <p>Request to preload and display dummy data across the experience.</p>
+      </div>
+      <pre class="prompt-block">can you put dummy data on input, also dummy data on the dashboard page and dummy data on AI insights page</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 3: Dashboard Analytics Expansion</h2>
+        <p>Request to add advanced visual analytics to the dashboard page.</p>
+      </div>
+      <pre class="prompt-block">OBJECTIVE:
+Update the existing Sustainability Dashboard page (dashboard.html + dashboard.js) to include:
+
+1) Stacked Bar Chart – Department Emission Breakdown
+2) Ranked Bar Chart – Top Emitting Departments
+3) Donut Chart – Emission Composition
+4) Flag Section – Highlight High Emission Departments
+5) Dynamic KPI Card Icons based on metric type
+
+Constraints:
+- Static only
+- No AI integration
+- No frameworks
+- Chart.js via CDN
+- Data pulled from localStorage
+
+Carbon factors:
+- Electricity CO2 = electricity * 0.0007
+- Fuel CO2 = fuel * 0.0023
+- Paper CO2 = paper * 0.001</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 4: Stacked Chart Resize Bug</h2>
+        <p>Request to fix the stacked chart growth issue.</p>
+      </div>
+      <pre class="prompt-block">there seems to be an error in the stacked chart. it keeps getting bigger</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 5: AI Executive Summary</h2>
+        <p>Request to add a board-ready executive summary to the insights page.</p>
+      </div>
+      <pre class="prompt-block">OBJECTIVE:
+Update the existing AI Insights page (ai-results.html + ai.js) to add a NEW Executive Summary section at the TOP of the page.
+
+Required summary outputs:
+1) Overall Sustainability Position
+2) Key Risk Area
+3) Emission Trend Insight
+4) Operational Risk Statement
+5) Overall Sustainability Rating
+
+Format requirements:
+- Executive card
+- Bold headline statement
+- 2–3 supporting bullet insights
+- Highlighted rating badge
+- Max 120–150 words
+- C-level ready language</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 6: ESG Maturity Scoring Framework</h2>
+        <p>Request to add a deterministic ESG scoring KPI and scoring breakdown to the dashboard.</p>
+      </div>
+      <pre class="prompt-block">TASK:
+Implement an ESG Maturity Scoring Framework in the Sustainability Dashboard (dashboard.html + dashboard.js).
+
+Required outputs:
+1) ESG Maturity Score: 0–100
+2) ESG Maturity Level (5 levels)
+3) Risk Band: Low / Moderate / High
+
+Framework:
+- 4 pillars, each 0–25
+- Use most recent month compared to previous month if available
+- Trend stability uses coefficient of variation over the last up to 6 months
+
+Display requirements:
+- New KPI tile at the top row
+- Score Breakdown mini section
+- Optional trend arrow indicator</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 7: GreenSight Rebrand</h2>
+        <p>Request to rebrand the app with the current corporate identity.</p>
+      </div>
+      <pre class="prompt-block">TASK:
+Update the existing static website branding for our sustainability web app to use the new brand:
+
+Brand Name: GreenSight
+Tagline: "See Beyond Emissions."
+Logo file: logo.png
+
+Requirements:
+- Consistent top navigation header on every page
+- Add logo + GreenSight + tagline
+- Add nav links for Input, Dashboard, AI Insights
+- Highlight active page link
+- Apply the GreenSight color palette
+- Update page headings to GreenSight branding style</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 8: Documentation Page</h2>
+        <p>Request to add the official product documentation page.</p>
+      </div>
+      <pre class="prompt-block">TASK:
+Add a new page to the GreenSight website called:
+
+documentation.html
+
+This page will serve as the official product documentation for:
+GreenSight – See Beyond Emissions
+AI-Powered Sustainability Risk &amp; Optimization Engine
+
+Required sections:
+1) Hero Section
+2) About the Project
+3) Purpose
+4) Key Features
+5) Benefits
+6) How to Use GreenSight
+7) ESG Scoring Methodology
+8) Future Roadmap
+
+Navigation update:
+- Add "Documentation" link to main navigation bar on all pages</pre>
+    </section>
+
+    <section class="panel prompt-archive">
+      <div class="section-heading">
+        <h2>Prompt 9: Favicon</h2>
+        <p>Request to apply the logo as the site favicon.</p>
+      </div>
+      <pre class="prompt-block">update to use the logo as favicon also</pre>
+    </section>
+  </main>
+</body>
+</html>
