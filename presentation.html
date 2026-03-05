@@ -63,6 +63,7 @@
       width: min(1120px, 100%);
       max-height: calc(100vh - 7.2rem);
       overflow: auto;
+      -webkit-overflow-scrolling: touch;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -408,6 +409,44 @@
       padding: 0.32rem 0.6rem;
     }
 
+    .nav-arrows {
+      position: fixed;
+      left: 50%;
+      bottom: 0.85rem;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.55rem;
+      z-index: 13;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid #c8d9cc;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--green-primary);
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .nav-btn:hover {
+      background: #edf6ee;
+      border-color: #b8d0be;
+    }
+
+    .nav-btn:disabled {
+      cursor: not-allowed;
+      color: #9fb0b8;
+      border-color: #d4dde0;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
     .progress {
       position: fixed;
       left: 0;
@@ -435,7 +474,81 @@
       }
 
       .slide-content {
-        padding: 1.25rem 1.1rem;
+        max-height: calc(100vh - 7.8rem);
+        padding: 1.3rem 1.15rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .slide {
+        padding: 1.15rem 0.7rem 5.2rem;
+      }
+
+      .slide-content {
+        max-height: calc(100vh - 8.2rem);
+        padding: 1rem 0.9rem;
+        border-radius: 12px;
+      }
+
+      .eyebrow {
+        font-size: 0.7rem;
+      }
+
+      .lead {
+        font-size: 0.96rem;
+      }
+
+      p,
+      li,
+      .matrix {
+        font-size: 0.92rem;
+      }
+
+      .matrix {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .brand-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .subtitle {
+        font-size: 1.02rem;
+      }
+
+      .controls {
+        left: 0.6rem;
+        bottom: calc(0.55rem + env(safe-area-inset-bottom));
+        font-size: 0.72rem;
+      }
+
+      .counter {
+        right: 0.6rem;
+        bottom: calc(0.55rem + env(safe-area-inset-bottom));
+        font-size: 0.76rem;
+      }
+
+      .nav-arrows {
+        bottom: calc(0.45rem + env(safe-area-inset-bottom));
+      }
+
+      .nav-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.45rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .controls {
+        display: none;
+      }
+
+      .counter {
+        bottom: calc(0.45rem + env(safe-area-inset-bottom));
       }
     }
   </style>
@@ -824,7 +937,11 @@
     </section>
   </main>
 
-  <div class="controls">Use Left/Right or Space to navigate</div>
+  <div class="controls">Use arrows, Left/Right, or Space</div>
+  <div class="nav-arrows" aria-label="Slide navigation">
+    <button class="nav-btn" id="prevSlideBtn" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="nav-btn" id="nextSlideBtn" type="button" aria-label="Next slide">&#8594;</button>
+  </div>
   <div class="counter" id="slideCounter">1 / 12</div>
 
   <script>
@@ -832,6 +949,9 @@
       const slides = Array.from(document.querySelectorAll(".slide"));
       const counter = document.getElementById("slideCounter");
       const progressBar = document.getElementById("progressBar");
+      const prevBtn = document.getElementById("prevSlideBtn");
+      const nextBtn = document.getElementById("nextSlideBtn");
+      const deck = document.getElementById("deck");
       let currentIndex = 0;
 
       function clamp(value, min, max) {
@@ -849,6 +969,8 @@
 
         counter.textContent = `${currentIndex + 1} / ${slides.length}`;
         progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === slides.length - 1;
       }
 
       function nextSlide() {
@@ -879,6 +1001,34 @@
         if (key === "End") {
           event.preventDefault();
           renderSlide(slides.length - 1);
+        }
+      });
+
+      prevBtn.addEventListener("click", prevSlide);
+      nextBtn.addEventListener("click", nextSlide);
+
+      let touchStartX = null;
+      deck.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      });
+
+      deck.addEventListener("touchend", (event) => {
+        if (touchStartX === null) {
+          return;
+        }
+
+        const touchEndX = event.changedTouches[0].clientX;
+        const delta = touchEndX - touchStartX;
+        touchStartX = null;
+
+        if (Math.abs(delta) < 48) {
+          return;
+        }
+
+        if (delta < 0) {
+          nextSlide();
+        } else {
+          prevSlide();
         }
       });
 
