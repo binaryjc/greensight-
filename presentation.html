@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenSight Pitch Presentation</title>
+  <link rel="icon" type="image/png" href="./logo.png" />
+  <style>
+    :root {
+      --green-primary: #2e7d32;
+      --green-accent: #43a047;
+      --warning: #f9a825;
+      --risk: #c62828;
+      --text-dark: #37474f;
+      --bg-light: #f6f8f7;
+      --card: #ffffff;
+      --border: #d8e1dd;
+      --shadow: 0 10px 28px rgba(55, 71, 79, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      overflow: hidden;
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg-light);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 2.4rem 2rem 4.6rem;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms ease;
+      display: grid;
+      place-items: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .slide-content {
+      width: min(1120px, 100%);
+      max-height: calc(100vh - 7.2rem);
+      overflow: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 2rem 2.1rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: var(--green-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.77rem;
+      font-weight: 800;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.18;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+    }
+
+    h2 {
+      font-size: clamp(1.45rem, 2.2vw, 2rem);
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0.45rem 0 0;
+      line-height: 1.5;
+    }
+
+    .lead {
+      font-size: 1.04rem;
+      color: #455a64;
+    }
+
+    .title-slide {
+      text-align: center;
+      padding-top: 1.8rem;
+      padding-bottom: 1.8rem;
+    }
+
+    .brand-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 0.3rem;
+      background: #fff;
+      object-fit: contain;
+    }
+
+    .tagline {
+      margin-top: 0.55rem;
+      color: var(--green-accent);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin-top: 0.95rem;
+      font-size: 1.15rem;
+      color: #455a64;
+    }
+
+    .deck-note {
+      margin-top: 1.2rem;
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      background: #edf6ee;
+      color: var(--green-primary);
+      border: 1px solid #cfe5d2;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.8rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 12px;
+      padding: 0.9rem 0.95rem;
+    }
+
+    .card-muted {
+      background: #fafcfb;
+    }
+
+    .impact-list,
+    .plain-list {
+      margin: 0.45rem 0 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .plain-list li,
+    .impact-list li {
+      line-height: 1.45;
+    }
+
+    .impact {
+      border-left: 4px solid var(--risk);
+    }
+
+    .market-stat {
+      margin-top: 0.8rem;
+      padding: 1rem;
+      border: 1px solid #cfe5d2;
+      background: #f5fbf6;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .market-stat .value {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--green-primary);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .market-stat .label {
+      margin-top: 0.3rem;
+      font-size: 0.95rem;
+      color: #546e7a;
+      font-weight: 600;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.65rem;
+      font-size: 0.92rem;
+    }
+
+    .matrix th,
+    .matrix td {
+      border: 1px solid var(--border);
+      padding: 0.58rem 0.56rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .matrix th {
+      background: #f0f6f1;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .matrix .gs {
+      background: #f7fcf8;
+      font-weight: 700;
+    }
+
+    .matrix-note {
+      margin-top: 0.55rem;
+      color: #546e7a;
+      font-size: 0.9rem;
+    }
+
+    .architecture-flow {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .arch-layer {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem;
+      background: #fff;
+    }
+
+    .arch-layer.input {
+      border-left: 6px solid var(--warning);
+    }
+
+    .arch-layer.processing {
+      border-left: 6px solid var(--green-accent);
+    }
+
+    .arch-layer.application {
+      border-left: 6px solid var(--green-primary);
+    }
+
+    .arch-layer h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .arch-arrow {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #78909c;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.75rem;
+    }
+
+    .price-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem;
+      background: #fff;
+    }
+
+    .price-card.featured {
+      border-color: rgba(46, 125, 50, 0.3);
+      background: #f8fcf8;
+    }
+
+    .plan {
+      margin: 0;
+      color: var(--green-primary);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .price {
+      margin-top: 0.35rem;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .price span {
+      font-size: 0.8rem;
+      color: #607d8b;
+      font-weight: 600;
+    }
+
+    .impl-fee {
+      margin-top: 0.85rem;
+      border: 1px solid #cfe5d2;
+      border-radius: 12px;
+      background: #edf6ee;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .impl-fee .amount {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--green-primary);
+    }
+
+    .financial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.8rem;
+    }
+
+    .metric-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 0.9rem;
+      background: #fff;
+    }
+
+    .metric-card .k {
+      font-size: 0.86rem;
+      color: #607d8b;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-card .v {
+      margin-top: 0.3rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .counter {
+      position: fixed;
+      right: 1.15rem;
+      bottom: 1rem;
+      z-index: 12;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.92);
+      color: #546e7a;
+      font-size: 0.83rem;
+      font-weight: 700;
+      backdrop-filter: blur(2px);
+    }
+
+    .controls {
+      position: fixed;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 12;
+      font-size: 0.8rem;
+      color: #607d8b;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.32rem 0.6rem;
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 4px;
+      width: 100%;
+      background: #dfe7e3;
+      z-index: 15;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--green-primary);
+      transition: width 220ms ease;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2,
+      .grid-3,
+      .pricing-grid,
+      .financial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slide-content {
+        padding: 1.25rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <main class="deck" id="deck" aria-live="polite">
+    <section class="slide active" data-title="Title">
+      <div class="slide-content title-slide">
+        <div class="brand-block">
+          <img
+            src="./logo.png"
+            alt="GreenSight logo"
+            class="brand-logo"
+            onerror="this.onerror=null;this.src='./assets/logo.png';"
+          />
+          <div>
+            <p class="eyebrow">GreenSight</p>
+            <h1>GreenSight</h1>
+          </div>
+        </div>
+        <p class="tagline">See Beyond Emissions</p>
+        <p class="subtitle">AI-Powered Sustainability Risk &amp; Optimization Engine</p>
+        <p class="deck-note">Executive Business Pitch</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Company Purpose">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 2</p>
+        <h2>Company Purpose</h2>
+        <p class="lead">
+          GreenSight is an AI-powered sustainability intelligence platform designed to help organizations transform fragmented
+          operational sustainability data into actionable decision intelligence.
+        </p>
+        <p>
+          Organizations collect large volumes of sustainability data but usually lack systems that convert those inputs into clear
+          performance insight and management action.
+        </p>
+        <div class="grid-2">
+          <article class="card">
+            <h3>What GreenSight Enables</h3>
+            <ul class="plain-list">
+              <li>Monitor operational emissions</li>
+              <li>Identify sustainability risks</li>
+              <li>Improve operational efficiency</li>
+              <li>Support ESG reporting and governance</li>
+              <li>Enable executive-level sustainability decisions</li>
+            </ul>
+          </article>
+          <article class="card card-muted">
+            <h3>Mission</h3>
+            <p><strong>Turn sustainability data into strategic intelligence.</strong></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Problem">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 3</p>
+        <h2>Problem</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Fragmented Data Systems</h3>
+            <p>Electricity, fuel, and paper utilization are tracked separately through spreadsheets or manual reports.</p>
+          </article>
+          <article class="card">
+            <h3>Lack of Decision Visibility</h3>
+            <p>Executives and managers lack a unified dashboard to understand emissions performance across departments.</p>
+          </article>
+          <article class="card">
+            <h3>Operational Inefficiencies</h3>
+            <p>Without analytics, inefficient energy and resource consumption often remains undetected.</p>
+          </article>
+          <article class="card">
+            <h3>Growing ESG Pressure</h3>
+            <p>Regulators and stakeholders increasingly require transparent sustainability accountability.</p>
+          </article>
+        </div>
+        <div class="card impact" style="margin-top: 0.85rem;">
+          <h3>Business Impact</h3>
+          <ul class="impact-list">
+            <li>Higher operational costs</li>
+            <li>Weak sustainability governance</li>
+            <li>Missed optimization opportunities</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Solution">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 4</p>
+        <h2>Solution</h2>
+        <p class="lead">
+          GreenSight provides an integrated sustainability intelligence platform that converts operational inputs into structured
+          emissions insight, executive summaries, and optimization guidance.
+        </p>
+        <div class="grid-3">
+          <article class="card"><h3>Sustainability Dashboard</h3><p>Visualizes emissions trends and resource consumption patterns.</p></article>
+          <article class="card"><h3>ESG Maturity Scoring</h3><p>Measures sustainability performance through a structured index.</p></article>
+          <article class="card"><h3>Department Analytics</h3><p>Identifies top emission contributors and operational inefficiencies.</p></article>
+          <article class="card"><h3>Risk Detection</h3><p>Flags abnormal consumption behavior and threshold breaches.</p></article>
+          <article class="card"><h3>AI Insight Engine</h3><p>Generates executive summaries and strategic recommendations.</p></article>
+          <article class="card card-muted"><h3>Outcome</h3><p>Real-time sustainability visibility and actionable optimization insight.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Why Now">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 5</p>
+        <h2>Why Now</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>ESG Reporting Requirements</h3>
+            <p>Regulators, investors, and boards are demanding greater sustainability transparency.</p>
+          </article>
+          <article class="card">
+            <h3>Rising Energy Costs</h3>
+            <p>Electricity and fuel are growing operational expenditure drivers.</p>
+          </article>
+          <article class="card">
+            <h3>Data Availability</h3>
+            <p>Organizations now collect operational sustainability data but lack usable analytics intelligence.</p>
+          </article>
+          <article class="card">
+            <h3>AI Maturity</h3>
+            <p>Modern AI capabilities enable automated insight generation and faster management interpretation.</p>
+          </article>
+        </div>
+        <div class="card card-muted" style="margin-top: 0.85rem;">
+          <p><strong>GreenSight combines these trends into a practical operating system for data-driven sustainability management.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Market Size">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 6</p>
+        <h2>Market Size</h2>
+        <p class="lead">The ESG software and sustainability analytics market is expanding rapidly.</p>
+        <div class="market-stat">
+          <div class="value">$10B+ by 2030</div>
+          <div class="label">Projected Global ESG Software Market</div>
+        </div>
+        <div class="grid-2" style="margin-top: 0.85rem;">
+          <article class="card">
+            <h3>Target Market</h3>
+            <ul class="plain-list">
+              <li>Government agencies</li>
+              <li>Small and medium enterprises</li>
+              <li>Corporate offices</li>
+              <li>Universities and institutions</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Market Opportunity</h3>
+            <p>
+              Deliver affordable sustainability intelligence to organizations that cannot absorb enterprise ESG platform
+              pricing and complexity.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Competition">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 7</p>
+        <h2>Competition Matrix</h2>
+        <table class="matrix" aria-label="Competition matrix">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>GreenSight</th>
+              <th>Watershed</th>
+              <th>Persefoni</th>
+              <th>Plan A</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price Accessibility</td>
+              <td class="gs">High</td>
+              <td>Low</td>
+              <td>Low</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>Implementation Complexity</td>
+              <td class="gs">Low</td>
+              <td>High</td>
+              <td>High</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>AI-powered Insights</td>
+              <td class="gs">Yes</td>
+              <td>Partial</td>
+              <td>Partial</td>
+              <td>Partial</td>
+            </tr>
+            <tr>
+              <td>Operational Emissions Monitoring</td>
+              <td class="gs">Strong Focus</td>
+              <td>Enterprise Focus</td>
+              <td>Enterprise Focus</td>
+              <td>Reporting Focus</td>
+            </tr>
+            <tr>
+              <td>SME Accessibility</td>
+              <td class="gs">High</td>
+              <td>Low</td>
+              <td>Low</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>Deployment Speed</td>
+              <td class="gs">Fast</td>
+              <td>Slow</td>
+              <td>Slow</td>
+              <td>Medium</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="matrix-note">
+          Competitor gaps: Watershed and Persefoni are enterprise-priced with complex deployment; Plan A is strong for ESG reporting but costly for SMEs.
+          GreenSight differentiates through affordability, lightweight rollout, and operational decision insight.
+        </p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Product">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 8</p>
+        <h2>Product</h2>
+        <div class="grid-2">
+          <article class="card"><h3>Sustainability Dashboard</h3><p>Tracks electricity, fuel, and paper emissions in a single view.</p></article>
+          <article class="card"><h3>Department Emission Analytics</h3><p>Identifies top emission contributors across operational units.</p></article>
+          <article class="card"><h3>ESG Maturity Score</h3><p>Evaluates sustainability performance using a structured maturity model.</p></article>
+          <article class="card"><h3>Risk Flagging System</h3><p>Detects abnormal consumption patterns and threshold breaches.</p></article>
+          <article class="card"><h3>AI Insights Engine</h3><p>Generates executive summaries and recommendation narratives.</p></article>
+          <article class="card card-muted">
+            <h3>Future Premium Modules</h3>
+            <ul class="plain-list">
+              <li>Device carbon footprint tracking</li>
+              <li>Employee commuting emissions</li>
+              <li>Digital infrastructure sustainability metrics</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Product Architecture">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 9</p>
+        <h2>Product Architecture</h2>
+        <p class="lead">Data input flows through processing and AI interpretation into executive decision interfaces.</p>
+        <div class="architecture-flow">
+          <article class="arch-layer input">
+            <h3>Data Input Layer</h3>
+            <ul class="plain-list">
+              <li>Electricity consumption data</li>
+              <li>Fuel usage data</li>
+              <li>Paper consumption data</li>
+              <li>Department operational metrics</li>
+            </ul>
+          </article>
+          <div class="arch-arrow">v</div>
+          <article class="arch-layer processing">
+            <h3>Processing &amp; AI Layer</h3>
+            <ul class="plain-list">
+              <li>Carbon emission conversion engine</li>
+              <li>ESG maturity scoring model</li>
+              <li>Risk detection algorithms</li>
+              <li>AI insight generation engine</li>
+            </ul>
+          </article>
+          <div class="arch-arrow">v</div>
+          <article class="arch-layer application">
+            <h3>Application Layer</h3>
+            <ul class="plain-list">
+              <li>Sustainability dashboard</li>
+              <li>Department analytics interface</li>
+              <li>Executive reporting module</li>
+              <li>Decision support interface</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Business Model">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 10</p>
+        <h2>Business Model</h2>
+        <p class="lead">GreenSight uses a Hybrid SaaS Model: one-time implementation plus monthly subscriptions.</p>
+        <div class="impl-fee">
+          <div>
+            <h3>Implementation Fee</h3>
+            <p>Includes system setup, onboarding, deployment configuration, and customization.</p>
+          </div>
+          <div class="amount">$1,000 one-time</div>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="plan">Starter</p>
+            <div class="price">$99 <span>/month</span></div>
+            <p>Operational emissions monitoring.</p>
+          </article>
+          <article class="price-card featured">
+            <p class="plan">Professional</p>
+            <div class="price">$299 <span>/month</span></div>
+            <p>Advanced analytics and AI insights.</p>
+          </article>
+          <article class="price-card">
+            <p class="plan">Enterprise</p>
+            <div class="price">$999 <span>/month</span></div>
+            <p>Expanded ESG intelligence modules.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Team">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 11</p>
+        <h2>Team</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Project Lead</h3>
+            <p>Owns product concept, pitch direction, and system architecture alignment.</p>
+          </article>
+          <article class="card">
+            <h3>AI / Data Specialist</h3>
+            <p>Designs ESG scoring framework and AI-driven executive insight layer.</p>
+          </article>
+          <article class="card">
+            <h3>Frontend Developer</h3>
+            <p>Builds dashboard interface, chart systems, and user interaction workflows.</p>
+          </article>
+          <article class="card">
+            <h3>Business Analyst</h3>
+            <p>Leads market research, competitor positioning, and business case modeling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Financials">
+      <div class="slide-content">
+        <p class="eyebrow">Slide 12</p>
+        <h2>Financials</h2>
+        <div class="financial-grid">
+          <article class="metric-card">
+            <div class="k">Cloud Hosting</div>
+            <div class="v">$10-$20 / month</div>
+          </article>
+          <article class="metric-card">
+            <div class="k">AI API Usage</div>
+            <div class="v">$10-$50 / month</div>
+          </article>
+          <article class="metric-card">
+            <div class="k">Domain &amp; Maintenance</div>
+            <div class="v">Minimal</div>
+          </article>
+          <article class="metric-card">
+            <div class="k">Model Type</div>
+            <div class="v">Scalable SaaS with low infra overhead</div>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 0.9rem;">
+          <article class="card">
+            <h3>Revenue Example: 10 Professional Subscribers</h3>
+            <p><strong>~ $2,990 / month</strong></p>
+          </article>
+          <article class="card">
+            <h3>Revenue Example: 50 Subscribers</h3>
+            <p><strong>~ $15,000 / month</strong></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="controls">Use Left/Right or Space to navigate</div>
+  <div class="counter" id="slideCounter">1 / 12</div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const counter = document.getElementById("slideCounter");
+      const progressBar = document.getElementById("progressBar");
+      let currentIndex = 0;
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function renderSlide(index) {
+        currentIndex = clamp(index, 0, slides.length - 1);
+
+        slides.forEach((slide, i) => {
+          const active = i === currentIndex;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+
+        counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+        progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+      }
+
+      function nextSlide() {
+        renderSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        renderSlide(currentIndex - 1);
+      }
+
+      document.addEventListener("keydown", (event) => {
+        const key = event.key;
+        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(key)) {
+          event.preventDefault();
+          nextSlide();
+          return;
+        }
+        if (["ArrowLeft", "ArrowUp", "PageUp"].includes(key)) {
+          event.preventDefault();
+          prevSlide();
+          return;
+        }
+        if (key === "Home") {
+          event.preventDefault();
+          renderSlide(0);
+          return;
+        }
+        if (key === "End") {
+          event.preventDefault();
+          renderSlide(slides.length - 1);
+        }
+      });
+
+      renderSlide(0);
+    })();
+  </script>
+</body>
+</html>
