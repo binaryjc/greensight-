@@ -202,3 +202,44 @@ Includes:
 - 50 subscribers: **~ $15,000 / month**
 
 Scalable SaaS model with low infrastructure overhead.
+
+---
+
+## Slide 13 - Website Inclusion Flow (1-2 Minutes)
+
+### Where to Insert in Pitch
+Use this right after **Slide 8 (Product)** so the audience sees the platform in action before architecture and business model.
+
+### Demo Flow (90 seconds)
+- **0:00-0:10 | Set context (on Slide 8):**
+  "Now let me quickly show how GreenSight works end-to-end in the actual website."
+- **0:10-0:25 | Input page (`index.html`):**
+  Show manual/CSV data input for electricity, fuel, and paper.
+  Emphasize: "We start from real operational usage data."
+- **0:25-0:50 | Dashboard (`dashboard.html`):**
+  Show summary metrics, department totals, trends, and flagged high-emission departments.
+  Emphasize: "This gives management instant visibility on where emissions are coming from."
+- **0:50-1:20 | AI Insights (`ai-results.html`):**
+  Show executive summary, forecast, anomalies, recommended strategies, then click **Export Results to PDF**.
+  Emphasize: "This turns raw metrics into decision-ready actions and instantly creates a shareable report for leadership."
+- **1:20-1:30 | Documentation (`documentation.html`):**
+  Show methodology, features, and roadmap.
+  Emphasize: "This keeps the solution transparent, explainable, and scalable for adoption."
+- **1:30-1:40 | Close and transition back to deck:**
+  "So from input to insights, GreenSight creates a complete sustainability decision workflow."
+
+---
+
+## Slide 14 - 1-2 Minute Presenter Script
+
+"To include the website in our pitch, I’ll walk you through the full GreenSight flow in about 90 seconds.
+
+First, this is our **Data Input page**. Organizations can upload CSV files or enter usage manually for electricity, fuel, and paper. This is important because most teams already have this data, but usually in scattered files.
+
+Next, once data is submitted, we move to the **Dashboard**. Here, decision-makers immediately see total emissions, department-level contributions, usage trends, and which departments exceed thresholds. So instead of guessing, they can instantly identify the biggest emission drivers.
+
+Then we open the **AI Insights page**. This section provides an executive summary, projected trends, anomaly detection, and recommended reduction actions. After reviewing the insights, we can click **Export Results to PDF** to produce a shareable executive report for meetings, approvals, and documentation. This is where GreenSight converts operational numbers into practical management decisions.
+
+Finally, our **Documentation page** shows the framework, methodology, and roadmap, which supports trust, onboarding, and future scaling.
+
+In short, GreenSight connects the full journey: **collect data, analyze performance, generate insights, and guide action**."
