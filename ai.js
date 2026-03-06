@@ -682,7 +682,35 @@ function renderFlaggedDepartments(data) {
   note.textContent = `Threshold = ${formatCarbon(data.threshold)} (15% above average department emissions). ${flaggedCount} of ${data.rows.length} department(s) flagged.`;
 }
 
+function initPdfExport() {
+  const exportButton = document.getElementById("exportPdfBtn");
+  const exportMeta = document.getElementById("exportMeta");
+  if (!exportButton) return;
+
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  exportButton.addEventListener("click", () => {
+    if (exportMeta) {
+      exportMeta.textContent = `Export generated: ${formatter.format(new Date())}`;
+      exportMeta.hidden = false;
+    }
+    window.print();
+  });
+
+  window.addEventListener("afterprint", () => {
+    if (exportMeta) exportMeta.hidden = true;
+  });
+}
+
 function initAiResults() {
+  initPdfExport();
+
   const records = readRecords();
   if (!records.length) {
     renderEmptyState("No sustainability data found in localStorage. Please enter data first.");

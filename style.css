@@ -1212,6 +1212,12 @@ label {
   margin: 0 0 0.8rem;
 }
 
+.export-meta {
+  margin: 0 0 0.8rem;
+  font-size: 0.86rem;
+  color: var(--color-muted);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1325,5 +1331,48 @@ label {
 
   .data-table {
     min-width: 560px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  body.page-insights {
+    background: #fff;
+    color: #111;
+  }
+
+  .page-insights .site-header,
+  .page-insights .header-actions,
+  .page-insights .top-nav {
+    display: none !important;
+  }
+
+  .page-insights .container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .page-insights main.container {
+    padding: 0;
+    gap: 0.6rem;
+  }
+
+  .page-insights .panel {
+    box-shadow: none;
+    border: 1px solid #d0d7d4;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .page-insights .table-wrap {
+    overflow: visible;
+  }
+
+  .page-insights .export-meta {
+    display: block !important;
   }
 }
